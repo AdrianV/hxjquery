@@ -1,6 +1,6 @@
 <project name="jquery" url="http://code.google.com/p/hxjquery/" license="Public">
+    <user name="VAdrian"/>
     <user name="AdrianV"/>
-    <user name="AdrianVeith"/>
     <description>HaXe wrapper for jquery.</description>
     <version name="1.0">Initial version.</version>
 </project>
