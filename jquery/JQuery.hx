@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ...
  * @author Adrian Veith
  */
@@ -227,10 +227,10 @@ class JQuery
 	public static inline function Ajax(options: Dynamic): XMLHttpRequest { return untyped jQuery.ajax(options); }
 	public static inline function AjaxSetup(options: Dynamic): Void { untyped jQuery.ajaxSetup(options); }
 	public inline function LoadUrl(url: String, ? data: Dynamic, ?call: Void -> Void): JQuery { return untyped this.load(url, data, call); }
-	public static inline function GetUrl(url: String, ? data: Dynamic, ?call: Void -> Void, ?type: String): XMLHttpRequest { return untyped this.get(url, data, call, type); }
-	public static inline function GetJSON(url: String, ? data: Dynamic, ?call: Void -> Void): XMLHttpRequest { return untyped this.getJSON(url, data, call); }
-	public static inline function GetScript(url: String, ?call: Void -> Void): XMLHttpRequest { return untyped this.getScript(url, call); }
-	public static inline function PostUrl(url: String, ? data: Dynamic, ?call: Void -> Void, ?type: String): XMLHttpRequest { return untyped this.post(url, data, call, type); }
+	public static inline function GetUrl(url: String, ? data: Dynamic, ?call: Void -> Void, ?type: String): XMLHttpRequest { return untyped jQuery.get(url, data, call, type); }
+	public static inline function GetJSON(url: String, ? data: Dynamic, ?call: Void -> Void): XMLHttpRequest { return untyped jQuery.getJSON(url, data, call); }
+	public static inline function GetScript(url: String, ?call: Void -> Void): XMLHttpRequest { return untyped jQuery.getScript(url, call); }
+	public static inline function PostUrl(url: String, ? data: Dynamic, ?call: Void -> Void, ?type: String): XMLHttpRequest { return untyped jQuery.post(url, data, call, type); }
 
 	public inline function AjaxComplete(call: Dynamic): JQuery { return untyped this.ajaxComplete(call); }
 	public inline function AjaxError(call: Dynamic): JQuery { return untyped this.ajaxError(call); }

@@ -2,5 +2,5 @@
     <user name="VAdrian"/>
     <user name="AdrianV"/>
     <description>HaXe wrapper for jquery.</description>
-    <version name="1.0">Initial version.</version>
+    <version name="1.01">fixed bugs in JQuery Ajax Api.</version>
 </project>
