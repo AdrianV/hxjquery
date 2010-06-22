@@ -267,22 +267,31 @@ class JQuery
 
 	// Widgets
 	public inline function Accordion(?param: Dynamic): JQuery { return untyped this.accordion(param); }
-	public inline function AccordionOption(name: String, ?value: Dynamic ): Dynamic { return untyped this.accordion('option', name, value); }
+	public inline function AccordionOption(name: String, ?value: Dynamic ): JQuery { return untyped this.accordion('option', name, value); }
+	
+	public inline function Autocomplete(?param: Dynamic): JQuery { return untyped this.autocomplete(param); }
+	public inline function AutocompleteOption(name: String, ?value: Dynamic ): JQuery { return untyped this.autocomplete('option', name, value); }
+	
+	public inline function Button(?param: Dynamic): JQuery { return untyped this.button(param); }
+	public inline function ButtonOption(name: String, ?value: Dynamic ):JQuery { return untyped this.button('option', name, value); }
+	
 	public inline function Datepicker(?param: Dynamic): JQuery { return untyped this.datepicker(param); }
-	public inline function DatepickerOption(name: String, ?value: Dynamic ): Dynamic { return untyped this.datepicker('option', name, value); }
+	public inline function DatepickerOption(name: String, ?value: Dynamic ): JQuery { return untyped this.datepicker('option', name, value); }
 	public inline function DPGetDate(): Date { return untyped this.datepicker('getDate'); }
 	public inline function DPSetDate(value: Date): Date { return untyped this.datepicker('setDate', value); }
+  public inline function DPGetValue(name: String): Dynamic { return untyped this.datepicker(name); }
+  public inline function DPSetValue(name: String, value: Dynamic){ return untyped this.datepicker(name, value); }
 
 	public inline function Dialog(?param: Dynamic): JQuery { return untyped this.dialog(param); }
-	public inline function DialogOption(name: String, ?value: Dynamic ): Dynamic { return untyped this.dialog('option', name, value); }
+	public inline function DialogOption(name: String, ?value: Dynamic ): JQuery { return untyped this.dialog('option', name, value); }
 	
 	public inline function Progressbar(?param: Dynamic): JQuery { return untyped this.progressbar(param); }
-	public inline function ProgressbarOption(name: String, ?value: Dynamic ): Dynamic { return untyped this.progressbar('option', name, value); }
+	public inline function ProgressbarOption(name: String, ?value: Dynamic ): JQuery { return untyped this.progressbar('option', name, value); }
 	
 	public inline function Slider(?param: Dynamic): JQuery { return untyped this.slider(param); }
-	public inline function SliderOption(name: String, ?value: Dynamic ): Dynamic { return untyped this.slider('option', name, value); }
+	public inline function SliderOption(name: String, ?value: Dynamic ): JQuery { return untyped this.slider('option', name, value); }
 
 	public inline function Tabs(?param: Dynamic): JQuery { return untyped this.tabs(param); }
-	public inline function TabsOption(name: String, ?value: Dynamic ): Dynamic { return untyped this.tabs('option', name, value); }
+	public inline function TabsOption(name: String, ?value: Dynamic ): JQuery { return untyped this.tabs('option', name, value); }
 
 }
