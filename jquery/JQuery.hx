@@ -99,9 +99,9 @@ class JQuery
 	public var Length(getLength, null): Int;
 	private inline function getLength(): Int { return untyped this.length; }
 	public var Selector(getSelector, null): String;
-	private inline function getSelector(): String { return untyped this.selector(); }
+	private inline function getSelector(): String { return untyped this.selector; }
 	public var Context(getContext, null): HtmlDom;
-	private inline function getContext(): HtmlDom { return untyped this.context(); }
+	private inline function getContext(): HtmlDom { return untyped this.context; }
 	
 	public inline function Eq(p: Int): JQuery { return untyped this.eq(p); }
 	public inline function Get(): Array<HtmlDom> { return untyped this.get(); }
