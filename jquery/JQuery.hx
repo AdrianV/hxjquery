@@ -13,6 +13,68 @@ typedef OffsetPos = {
 	top: Int,
 	left: Int
 }
+typedef RequestObject = {
+  var term: String;
+}
+
+extern class EventObject implements Dynamic {
+	static public inline var acMODIFICATION = 1;
+	static public inline var acADDITION		= 2;
+	static public inline var acREMOVAL		= 3;
+
+	static public inline var epCAPTURING_PHASE  = 1;
+	static public inline var epAT_TARGET		= 2;
+	static public inline var epBUBBLING_PHASE	= 3;
+	
+	public var altKey: Bool;
+	public var attrChange: Int;
+	public var attrName: String;
+	public var bubbles: Bool;
+	public var button: Int;
+	public var cancelable: Bool;
+	public var charCode: Int;
+	public var clientX: Int;
+	public var clientY: Int;
+	public var ctrlKey: Bool;
+	public var currentTarget: HtmlDom;
+	public var data: Dynamic;
+	public var detail: Int;
+	public var eventPhase: Int;
+	public var fromElement: HtmlDom;
+	public var handler: EventObject -> Void;
+	public var keyCode: Int;
+	public var layerX: Int;
+	public var layerY: Int;
+	public var metaKey: Bool;
+	public var newValue: String;
+	public var offsetX: Int;
+	public var offsetY: Int;
+	public var originalTarget: HtmlDom;
+	public var pageX: Int;
+	public var pageY: Int;
+	public var prevValue: String;
+	public var relatedNode: HtmlDom;
+	public var relatedTarget: HtmlDom;
+	public var screenX: Int;
+	public var screenY: Int;
+	public var shiftKey: Bool;
+	public var srcElement: HtmlDom;
+	public var target: HtmlDom;
+	public var toElement: HtmlDom;
+	public var view: Window;
+	public var wheelDelta: Int;
+	public var which: Int;
+	
+	public function isDefaultPrevented(): Bool;
+    public function isImmediatePropagationStopped(): Bool;
+	public function isPropagationStopped(): Bool;
+	public function preventDefault(): Void;
+	public function stopImmediatePropagation(): Void;
+	public function stopPropagation(): Void;
+	public function new(): Void;
+}
+
+typedef EventHandler = EventObject-> Void;
 
 class JQuery 
 {
@@ -72,8 +134,10 @@ class JQuery
 	public inline function SetText(value: String): JQuery { return untyped this.text(value); }
 	
 	public inline function Val(): String { return untyped this.val(); }
+	public inline function ValChecked(): Bool { return untyped this.val(); }
 	public inline function ValArray(): Array<String> { return untyped this.val(); }
 	public inline function SetVal(value: String): JQuery { return untyped this.val(value); }
+	public inline function SetValChecked(value: Bool): JQuery { return untyped this.val(value); }
 	public inline function SetValArray(value: Array<String>): JQuery { return untyped this.val(value); }
 	
 	public inline function Filter(expr: String): JQuery { return untyped this.filter(expr); }
@@ -149,54 +213,54 @@ class JQuery
 	public inline function OuterHeight(?margin: Int): Int { return untyped this.outerHeight(margin); }
 	public inline function OuterWidth(?margin: Int): Int { return untyped this.outerWidth(margin); }
 
-	public inline function Bind<T>(type: String, fn: T->Void): JQuery { return untyped this.bind(type, fn); }
-	public inline function BindWithData<T>(type: String, data: Dynamic, fn: T->Void): JQuery { return untyped this.bind(type, data, fn); }
+	public inline function Bind(type: String, fn: EventHandler): JQuery { return untyped this.bind(type, fn); }
+	public inline function BindWithData(type: String, data: Dynamic, fn: EventHandler): JQuery { return untyped this.bind(type, data, fn); }
 	
-	public inline function One<T>(type: String, fn: T->Void): JQuery { return untyped this.one(type, fn); }
-	public inline function OneWithData < T > (type: String, data: Dynamic, fn: T -> Void): JQuery { return untyped this.one(type, data, fn); }
+	public inline function One(type: String, fn: EventHandler): JQuery { return untyped this.one(type, fn); }
+	public inline function OneWithData(type: String, data: Dynamic, fn: EventHandler): JQuery { return untyped this.one(type, data, fn); }
 	
 	public inline function Trigger(event: String, data: Dynamic): JQuery { return untyped this.trigger(event, data); }
 	public inline function TriggerHandler(event: String, data: Dynamic): Dynamic { return untyped this.triggerHandler(event, data); }
-	public inline function Unbind <T> (?type: String, ?fn: T -> Void): JQuery { return untyped this.unbind(type, fn); }
+	public inline function Unbind(?type: String, ?fn: EventHandler): JQuery { return untyped this.unbind(type, fn); }
 	
-	public inline function Live<T>(type: String, fn: T->Void): JQuery { return untyped this.live(type, fn); }
-	public inline function Die<T>(?type: String, ?fn: T->Void): JQuery { return untyped this.die(type, fn); }
-	public inline function Hover<T>(over: T->Void, out: T->Void): JQuery { return untyped this.hover(over, out); }
+	public inline function Live(type: String, fn: EventHandler): JQuery { return untyped this.live(type, fn); }
+	public inline function Die(?type: String, ?fn: EventHandler): JQuery { return untyped this.die(type, fn); }
+	public inline function Hover(over: EventHandler, out: EventHandler): JQuery { return untyped this.hover(over, out); }
 
 	
 	public inline function Blur(): JQuery { return untyped this.blur(); }
-	public inline function BlurCall<T>(fn: T->Void): JQuery { return untyped this.blur(fn); }
+	public inline function BlurCall(fn: EventHandler): JQuery { return untyped this.blur(fn); }
 	public inline function Change(): JQuery { return untyped this.change(); }
-	public inline function ChangeCall<T>(fn: T->Void): JQuery { return untyped this.change(fn); }
+	public inline function ChangeCall(fn: EventHandler): JQuery { return untyped this.change(fn); }
 	public inline function Click(): JQuery { return untyped this.click(); }
-	public inline function ClickCall<T>(fn: T->Void): JQuery { return untyped this.click(fn); }
+	public inline function ClickCall(fn: EventHandler): JQuery { return untyped this.click(fn); }
 	public inline function Dblclick(): JQuery { return untyped this.dblclick(); }
-	public inline function DblclickCall<T>(fn: T->Void): JQuery { return untyped this.dblclick(fn); }
+	public inline function DblclickCall(fn: EventHandler): JQuery { return untyped this.dblclick(fn); }
 	public inline function Error(): JQuery { return untyped this.error(); }
-	public inline function ErrorCall<T>(fn: T->Void): JQuery { return untyped this.error(fn); }
+	public inline function ErrorCall(fn: EventHandler): JQuery { return untyped this.error(fn); }
 	public inline function Focus(): JQuery { return untyped this.focus(); }
-	public inline function FocusCall<T>(fn: T->Void): JQuery { return untyped this.focus(fn); }
+	public inline function FocusCall(fn: EventHandler): JQuery { return untyped this.focus(fn); }
 	public inline function Keydown(): JQuery { return untyped this.keydown(); }
-	public inline function KeydownCall<T>(fn: T->Void): JQuery { return untyped this.keydown(fn); }
+	public inline function KeydownCall(fn: EventHandler): JQuery { return untyped this.keydown(fn); }
 	public inline function Keypress(): JQuery { return untyped this.keypress(); }
-	public inline function KeypressCall<T>(fn: T->Void): JQuery { return untyped this.keypress(fn); }
+	public inline function KeypressCall(fn: EventHandler): JQuery { return untyped this.keypress(fn); }
 	public inline function Keypup(): JQuery { return untyped this.keyup(); }
-	public inline function KeyupCall<T>(fn: T->Void): JQuery { return untyped this.keyup(fn); }
-	public inline function Load<T>(fn: T->Void): JQuery { return untyped this.load(fn); }
-	public inline function Mousedown < T > (fn: T -> Void): JQuery { return untyped this.mousedown(fn); }
-	public inline function Mouseenter<T>(fn: T->Void): JQuery { return untyped this.mouseenter(fn); }
-	public inline function Mouseleave < T > (fn: T -> Void): JQuery { return untyped this.mouseleave(fn); }
-	public inline function Mousemove<T>(fn: T->Void): JQuery { return untyped this.mousemove(fn); }
-	public inline function Mouseout<T>(fn: T->Void): JQuery { return untyped this.mouseout(fn); }
-	public inline function Mouseover<T>(fn: T->Void): JQuery { return untyped this.mouseover(fn); }
-	public inline function Mouseup<T>(fn: T->Void): JQuery { return untyped this.mouseup(fn); }
-	public inline function Resize<T>(fn: T->Void): JQuery { return untyped this.resize(fn); }
-	public inline function Scroll<T>(fn: T->Void): JQuery { return untyped this.scroll(fn); }
+	public inline function KeyupCall(fn: EventHandler): JQuery { return untyped this.keyup(fn); }
+	public inline function Load(fn: EventHandler): JQuery { return untyped this.load(fn); }
+	public inline function Mousedown (fn: EventHandler): JQuery { return untyped this.mousedown(fn); }
+	public inline function Mouseenter(fn: EventHandler): JQuery { return untyped this.mouseenter(fn); }
+	public inline function Mouseleave(fn: EventHandler): JQuery { return untyped this.mouseleave(fn); }
+	public inline function Mousemove(fn: EventHandler): JQuery { return untyped this.mousemove(fn); }
+	public inline function Mouseout(fn: EventHandler): JQuery { return untyped this.mouseout(fn); }
+	public inline function Mouseover(fn: EventHandler): JQuery { return untyped this.mouseover(fn); }
+	public inline function Mouseup(fn: EventHandler): JQuery { return untyped this.mouseup(fn); }
+	public inline function Resize(fn: EventHandler): JQuery { return untyped this.resize(fn); }
+	public inline function Scroll(fn: EventHandler): JQuery { return untyped this.scroll(fn); }
 	public inline function Select(): JQuery { return untyped this.select(); }
-	public inline function SelectCall<T>(fn: T->Void): JQuery { return untyped this.select(fn); }
+	public inline function SelectCall(fn: EventHandler): JQuery { return untyped this.select(fn); }
 	public inline function Submit(): JQuery { return untyped this.submit(); }
-	public inline function SubmitCall<T>(fn: T->Void): JQuery { return untyped this.submit(fn); }
-	public inline function Unload<T>(fn: T->Void): JQuery { return untyped this.unload(fn); }
+	public inline function SubmitCall(fn: EventHandler): JQuery { return untyped this.submit(fn); }
+	public inline function Unload(fn: EventHandler): JQuery { return untyped this.unload(fn); }
 
 	public inline function DisableSelection(): JQuery { return untyped this.disableSelection(); }
 	public inline function EnableSelection(): JQuery { return untyped this.enableSelection(); }
@@ -206,7 +270,7 @@ class JQuery
 	public inline function Toggle(?speed: Int, ?call: Void -> Void): JQuery { return untyped this.toggle(speed, call); }
 	public inline function ToggleTo(to: Bool): JQuery { return untyped this.toggle(to); }
 	
-	public inline function ToggleCall < T > (fn1: T-> Void, fn2: T-> Void, ?fn3: T-> Void, ?fn4: T-> Void): JQuery { return untyped this.toggle(fn1, fn2, fn3, fn4); }
+	public inline function ToggleCall(fn1: EventHandler, fn2: EventHandler, ?fn3: EventHandler, ?fn4: EventHandler): JQuery { return untyped this.toggle(fn1, fn2, fn3, fn4); }
 	
 	public inline function SlideDown(speed: Int, ?call: Void -> Void): JQuery { return untyped this.slideDown(speed, call); }
 	public inline function SlideUp(speed: Int, ?call: Void -> Void): JQuery { return untyped this.slideUp(speed, call); }
@@ -267,23 +331,24 @@ class JQuery
 
 	// Widgets
 	public inline function Accordion(?param: Dynamic): JQuery { return untyped this.accordion(param); }
-	public inline function AccordionOption(name: String, ?value: Dynamic ): JQuery { return untyped this.accordion('option', name, value); }
+	public inline function AccordionOption(name: String, ?value: Dynamic ): Dynamic { return untyped this.accordion('option', name, value); }
 	
-	public inline function Autocomplete(?param: Dynamic): JQuery { return untyped this.autocomplete(param); }
-	public inline function AutocompleteOption(name: String, ?value: Dynamic ): JQuery { return untyped this.autocomplete('option', name, value); }
+	public inline function Autocomplete(?param: Dynamic, ? value: Dynamic): JQuery { return untyped this.autocomplete(param, value); }
+	public inline function AutocompleteOption(name: String, ?value: Dynamic ): Dynamic { return untyped this.autocomplete('option', name, value); }
 	
 	public inline function Button(?param: Dynamic): JQuery { return untyped this.button(param); }
-	public inline function ButtonOption(name: String, ?value: Dynamic ):JQuery { return untyped this.button('option', name, value); }
+	public inline function ButtonOption(name: String, ?value: Dynamic ):Dynamic { return untyped this.button('option', name, value); }
 	
 	public inline function Datepicker(?param: Dynamic): JQuery { return untyped this.datepicker(param); }
-	public inline function DatepickerOption(name: String, ?value: Dynamic ): JQuery { return untyped this.datepicker('option', name, value); }
+	public inline function DatepickerOption(name: String, ?value: Dynamic ): Dynamic { return untyped this.datepicker('option', name, value); }
 	public inline function DPGetDate(): Date { return untyped this.datepicker('getDate'); }
 	public inline function DPSetDate(value: Date): Date { return untyped this.datepicker('setDate', value); }
   public inline function DPGetValue(name: String): Dynamic { return untyped this.datepicker(name); }
   public inline function DPSetValue(name: String, value: Dynamic){ return untyped this.datepicker(name, value); }
 
 	public inline function Dialog(?param: Dynamic): JQuery { return untyped this.dialog(param); }
-	public inline function DialogOption(name: String, ?value: Dynamic ): JQuery { return untyped this.dialog('option', name, value); }
+	public inline function DialogOption(name: String, ?value: Dynamic ): Dynamic { return untyped this.dialog('option', name, value); }
+	public inline function DialogOptions(value: Dynamic ): JQuery { return untyped this.dialog('option', value); }
 	
 	public inline function Progressbar(?param: Dynamic): JQuery { return untyped this.progressbar(param); }
 	public inline function ProgressbarOption(name: String, ?value: Dynamic ): JQuery { return untyped this.progressbar('option', name, value); }
