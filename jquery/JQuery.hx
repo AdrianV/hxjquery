@@ -76,16 +76,16 @@ extern class EventObject implements Dynamic {
 
 typedef EventHandler = EventObject-> Void;
 
-class JQuery 
+extern class JQuery 
 {
 
-	public function new() { }
+	//public function new(): Void;// { }
 	
 	static public inline function Elements(e: Dynamic): JQuery { return untyped (jQuery(e)); }
 	static public inline function This(): JQuery { return untyped __js__("jQuery(this)"); }
 	static public inline function CreateHtml(html: String, ?doc: Dynamic): JQuery { return untyped (jQuery(html, doc)); }
 	
-	static public inline function Qy(query: String): JQuery { return untyped jQuery(query); }
+	static public inline function Qy(query: String): JQuery { return untyped __js__("$")(query); }
 	static public inline function QyContext(query: String, context: Dynamic): JQuery { return untyped jQuery(query, context); }
 	static public inline function Ready(f: Void -> Void): JQuery { return untyped (jQuery(f)); }
 	
@@ -344,7 +344,7 @@ class JQuery
 	public inline function DPGetDate(): Date { return untyped this.datepicker('getDate'); }
 	public inline function DPSetDate(value: Date): Date { return untyped this.datepicker('setDate', value); }
   public inline function DPGetValue(name: String): Dynamic { return untyped this.datepicker(name); }
-  public inline function DPSetValue(name: String, value: Dynamic){ return untyped this.datepicker(name, value); }
+  public inline function DPSetValue(name: String, value: Dynamic): Dynamic { return untyped this.datepicker(name, value); }
 
 	public inline function Dialog(?param: Dynamic): JQuery { return untyped this.dialog(param); }
 	public inline function DialogOption(name: String, ?value: Dynamic ): Dynamic { return untyped this.dialog('option', name, value); }
