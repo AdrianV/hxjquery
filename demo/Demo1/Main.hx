@@ -4,38 +4,45 @@
  */
 
 import js.Dom;
-import jquery.JQuery;
+import jquery.JQueryX;
+
+using jquery.JQueryX;
+
 
 class Main {
 
 	public static function Repaint() {
-		JQuery.Qy('#sortable li:odd').AddClass('ui-state-default').RemoveClass('ui-state-highlight');
-		JQuery.Qy('#sortable li:even').RemoveClass('ui-state-default').AddClass('ui-state-highlight');		
+		'#sortable li:odd'.qy().addClass('ui-state-default').removeClass('ui-state-highlight');
+		'#sortable li:even'.qy().removeClass('ui-state-default').addClass('ui-state-highlight');		
 	}
 	
 	public static function animA() {
-		JQuery.Qy('#a').FadeIn(1000, function() {
-			JQuery.This().FadeOut(1000, Main.animA);
+		'#a'.qy().fadeIn(1000, function() {
+			JQueryX.currentThis.fadeOut(1000, Main.animA);
 		});		
 	}
 	public static function animB() {
-		JQuery.Qy('#b').FadeIn(2000, function() {
-			JQuery.This().FadeOut(1000, Main.animB);
+		'#b'.qy().fadeIn(2000, function() {
+			JQueryX.currentThis.fadeOut(1000, Main.animB);
 		});		
 	}
 	public static function startup() {
+		'#a'.qy().attr('test', 'Hallo Welt');
+		
 		Repaint();
-		JQuery.Qy('#sortable').Sortable({ 
+		'#sortable'.qy().sortable({ 
 			stop: function (event, ui) { Repaint();
-			}}).DisableSelection();
-		JQuery.Qy('#a').Hide();
-		JQuery.Qy('#b').Hide();
+			}}).disableSelection();
+		'#a'.qy().hide();
+		'#b'.qy().hide();
 		animA();
 		animB();
+		//JQuery.when( { test: 123 } ).done( function(x) { x.test = 124; } );
+		var c = JQueryX.me.extend(true, { a: 123 }, { b:321 } );
 	}
 	
 	static function main()
 	{
-		JQuery.Ready(startup);
+		JQueryX.ready(startup);
 	}
 }

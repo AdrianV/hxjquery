@@ -1,6 +1,6 @@
 <project name="jquery" url="http://code.google.com/p/hxjquery/" license="Public">
     <user name="VAdrian"/>
     <user name="AdrianV"/>
-    <description>HaXe wrapper for jquery.</description>
-    <version name="1.01">fixed bugs in JQuery Ajax Api.</version>
+    <description>HaXe wrapper for jQuery.</description>
+    <version name="1.2">added JQueryX which extends the standard js.JQuery with UI support and more</version>
 </project>
