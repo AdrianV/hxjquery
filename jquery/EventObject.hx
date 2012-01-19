@@ -2,6 +2,10 @@ package jquery;
 import js.Dom;
 import js.XMLHttpRequest;
 
+typedef RequestObject = {
+  var term: String;
+}
+
 extern class EventObject implements Dynamic {
 	static public inline var acMODIFICATION = 1;
 	static public inline var acADDITION		= 2;

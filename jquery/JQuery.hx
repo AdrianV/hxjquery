@@ -13,9 +13,7 @@ typedef OffsetPos = {
 	top: Int,
 	left: Int
 }
-typedef RequestObject = {
-  var term: String;
-}
+
 
 extern class JQuery 
 {
