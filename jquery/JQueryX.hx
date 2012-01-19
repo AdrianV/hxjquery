@@ -78,29 +78,6 @@ extern class JQueryX extends js.JQuery
 	@:overload(function (name: String, call: SimpleCallback): Array < SimpleCallback > {}) 
 	override public function queue(? name: String ): { length : Int }; 
 	
-	//public inline function QueueCall(name: String, call: Void -> Void): JQueryX { return untyped this.queue(name, call); }
-	//public inline function QueueReplace(name: String, q: Array < Void -> Void > ): JQueryX { return untyped this.queue(name, q); }
-	//public inline function DeQueue(name: String): JQueryX { return untyped this.dequeue(name); }
-	
-	//public inline function Attr(name: String): Dynamic { return untyped this.attr(name); }
-	//public inline function SetAttr(prop: Dynamic): JQueryX { return untyped this.attr(prop); }
-	//public inline function SetAttrValue(name: String, value: Dynamic): JQueryX { return untyped this.attr(name, value); }
-	//public inline function SetAttrCall(name: String, fn: Int->Void): JQueryX { return untyped this.attr(name, fn); }
-	//public inline function RemoveAttr(name: String): JQueryX { return untyped this.removeAttr(name); }
-	
-	//public inline function AddClass(cl: String): JQueryX { return untyped this.addClass(cl); }
-	//public inline function HasClass(cl: String): Bool { return untyped this.hasClass(cl); }
-	//public inline function RemoveClass(cl: String): JQueryX { return untyped this.removeClass(cl); }
-	//public inline function ToggleClass(cl: String): JQueryX { return untyped this.toggleClass(cl); }
-	//public inline function SwitchClass(cl: String, _switch: Bool): JQueryX { return untyped this.toggleClass(cl, _switch); }
-
-	//public inline function Html(): String { return untyped this.html(); }
-	//public inline function SetHtml(value: String): JQueryX { return untyped this.html(value); }
-	//public inline function Text(): String { return untyped this.text(); }
-	//public inline function SetText(value: String): JQueryX { return untyped this.text(value); }
-	
-
-	//public inline function Val(): String { return untyped this.val(); }
 	
 	public inline function valChecked(): Bool { return untyped this.val(); }
 	public inline function valArray(): Array<String> { return untyped this.val(); }
@@ -111,7 +88,10 @@ extern class JQueryX extends js.JQuery
 	override function filter(expr: String): js.JQuery;
 	
 	public function map(call: Void->Void ): JQueryX;
-
+	
+	@:overload(function ( f : Int -> Void ) : JQueryX {}) 
+	override function each( f : Void -> Void ) : js.JQuery;
+	
 	//public inline function Add(expr: String): JQueryX { return untyped this.add(expr); }
 	//public inline function Children(?expr: String): JQueryX { return untyped this.children(expr); }
 	
