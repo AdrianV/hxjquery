@@ -65,6 +65,8 @@ extern class JQueryX extends js.JQuery
 	@:overload( function (deep: Bool, target:Dynamic, ? obj1: Dynamic, ? obj2: Dynamic, ? obj3: Dynamic): Dynamic {})
 	public function extend(target: Dynamic, ? obj1: Dynamic, ? obj2: Dynamic, ? obj3: Dynamic): Dynamic;
 	
+	@:overload(function( props: Dynamic ): JQueryX {})
+	override function attr( name : String ) : String;
 	
 	
 	public var selector(default, null): String;
@@ -183,6 +185,7 @@ extern class JQueryX extends js.JQuery
 	@:overload(function (to: Bool): JQueryX {})
 	override function toggle( ?duration : Int, ?call : Void -> Void ) : js.JQuery;
 	
+		
 	@:overload(function animate( properties : { }, options : { }): JQueryX {})
 	override function animate( properties : { }, ?duration : Int, ?callb : Void -> Void ) : js.JQuery;
 	
