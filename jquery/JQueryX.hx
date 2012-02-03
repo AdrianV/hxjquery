@@ -35,20 +35,30 @@ extern class Deferred<T> extends Promise<T> {
 typedef SimpleCallback = Void->Void;
 typedef CallbackCallback = SimpleCallback->Void;
 
+@:native("js.JQuery")
 extern class JQueryX extends js.JQuery
 {
 
-	//public function new(): Void;// { }
-	static inline function getMe(): JQueryX { return untyped __js__("jQuery"); }
+	#if qualifiedJquery
+	static public inline var _j = "jQuery";
+	#else
+	static public inline var _j = "$";
+	#end
+	static inline function getMe(): JQueryX { return untyped __js__(_j); }
 	static public var me(getMe, null): JQueryX;
 	
-	static public inline function qy(query: String): JQueryX { return untyped __js__("jQuery")(query); }
-	static public inline function qyContext(query: String, context: Dynamic): JQueryX { return untyped jQuery(query, context); }
-	static public inline function qyElements(e: Dynamic): JQueryX { return untyped (jQuery(e)); }
+	static public inline function qy(query: String): JQueryX { return untyped __js__(_j)(query); }
+	static public inline function qyContext(query: String, context: Dynamic): JQueryX { return untyped __js__(_j)(query, context); }
+	
+	@:overload(function(d: Array<HtmlDom>): JQueryX {})
+	static public inline function qyDom(d: HtmlDom): JQueryX { return untyped __js__(_j)(d); }
+	
+	static public inline function qyAny(e: Dynamic): JQueryX { return untyped __js__(_j)(e); }
 	static public inline function fromHtml(html: String, ?doc: Dynamic): JQueryX { return untyped (jQuery(html, doc)); }
 	
-	static public inline function getCurrentThis(): JQueryX { return untyped __js__("jQuery(this)"); }
+	static inline function getCurrentThis(): JQueryX { return untyped __js__("jQuery(this)"); }
 	static public var currentThis(getCurrentThis, null): JQueryX;
+	static public var This(getCurrentThis, null): JQueryX;
 	
 	static public inline function ready(f: Void -> Void): JQueryX { return untyped (jQuery(f)); }
 	static public inline function dup(j: JQuery): JQueryX { return untyped (jQuery(j)); }
@@ -65,6 +75,7 @@ extern class JQueryX extends js.JQuery
 	@:overload( function (deep: Bool, target:Dynamic, ? obj1: Dynamic, ? obj2: Dynamic, ? obj3: Dynamic): Dynamic {})
 	public function extend(target: Dynamic, ? obj1: Dynamic, ? obj2: Dynamic, ? obj3: Dynamic): Dynamic;
 	
+	@:overload(function(name:String,value:String): JQueryX{})
 	@:overload(function( props: Dynamic ): JQueryX {})
 	override function attr( name : String ) : String;
 	
@@ -159,8 +170,8 @@ extern class JQueryX extends js.JQuery
 	//public inline function OuterHeight(?margin: Int): Int { return untyped this.outerHeight(margin); }
 	//public inline function OuterWidth(?margin: Int): Int { return untyped this.outerWidth(margin); }
 
-	@:overload(function bind( events : String, data: Dynamic, callb : EventHandler ) : JQueryX {})
-	@:overload(function bind( events : String, callb : EventHandler ) : JQueryX {})
+	@:overload(function ( events : String, data: Dynamic, callb : EventHandler2 ) : JQueryX {})
+	@:overload(function ( events : String, callb : EventHandler ) : JQueryX {})
 	override function bind( events : String, callb : js.JQuery.JqEvent -> Void  ) : js.JQuery;
 	
 	//public inline function One(type: String, fn: EventHandler): JQueryX { return untyped this.one(type, fn); }
@@ -176,7 +187,9 @@ extern class JQueryX extends js.JQuery
 	//public inline function Die(?type: String, ?fn: EventHandler): JQueryX { return untyped this.die(type, fn); }
 	//public inline function Hover(over: EventHandler, out: EventHandler): JQueryX { return untyped this.hover(over, out); }
 
-	
+	@:overload(function(events: String, selector: String, data: Dynamic, f: EventObject->Void):Void {})
+	@:overload(function(events: String, selector: String, f: EventObject->Void):Void {})
+	function on(events: String, f: EventObject->Void): Void;
 
 	function disableSelection(): JQueryX;
 	function enableSelection(): JQueryX;
@@ -347,6 +360,7 @@ extern class JQueryX extends js.JQuery
 	
 }
 
+#if iDontNeedThis
 private class JQueryImplementation {
 	private static function __init__() : Void untyped {
 		var q : Dynamic = window.jQuery;
@@ -354,3 +368,4 @@ private class JQueryImplementation {
 		jquery.jQuery = q;
 	}		
 }
+#end

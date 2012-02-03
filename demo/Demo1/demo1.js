@@ -206,30 +206,30 @@ js.Lib.prototype = {
 var Main = $hxClasses["Main"] = function() { }
 Main.__name__ = ["Main"];
 Main.Repaint = function() {
-	jQuery("#sortable li:odd").addClass("ui-state-default").removeClass("ui-state-highlight");
-	jQuery("#sortable li:even").removeClass("ui-state-default").addClass("ui-state-highlight");
+	$("#sortable li:odd").addClass("ui-state-default").removeClass("ui-state-highlight");
+	$("#sortable li:even").removeClass("ui-state-default").addClass("ui-state-highlight");
 }
 Main.animA = function() {
-	jQuery("#a").fadeIn(1000,function() {
+	$("#a").fadeIn(1000,function() {
 		jQuery(this).fadeOut(1000,Main.animA);
 	});
 }
 Main.animB = function() {
-	jQuery("#b").fadeIn(2000,function() {
+	$("#b").fadeIn(2000,function() {
 		jQuery(this).fadeOut(1000,Main.animB);
 	});
 }
 Main.startup = function() {
-	jQuery("#a").attr("test","Hallo Welt");
+	$("#a").attr("test","Hallo Welt");
 	Main.Repaint();
-	jQuery("#sortable").sortable({ stop : function(event,ui) {
+	$("#sortable").sortable({ stop : function(event,ui) {
 		Main.Repaint();
 	}}).disableSelection();
-	jQuery("#a").hide();
-	jQuery("#b").hide();
+	$("#a").hide();
+	$("#b").hide();
 	Main.animA();
 	Main.animB();
-	var c = jQuery.extend(true,{ a : 123},{ b : 321});
+	var c = $.extend(true,{ a : 123},{ b : 321});
 }
 Main.main = function() {
 	jQuery(Main.startup);
@@ -279,13 +279,6 @@ IntIter.prototype = {
 		return this.min++;
 	}
 	,__class__: IntIter
-}
-var jquery = jquery || {}
-if(!jquery._JQueryX) jquery._JQueryX = {}
-jquery._JQueryX.JQueryImplementation = $hxClasses["jquery._JQueryX.JQueryImplementation"] = function() { }
-jquery._JQueryX.JQueryImplementation.__name__ = ["jquery","_JQueryX","JQueryImplementation"];
-jquery._JQueryX.JQueryImplementation.prototype = {
-	__class__: jquery._JQueryX.JQueryImplementation
 }
 js.Boot.__res = {}
 js.Boot.__init();
@@ -400,10 +393,5 @@ js["XMLHttpRequest"] = window.XMLHttpRequest?XMLHttpRequest:window.ActiveXObject
 	throw "Unable to create XMLHttpRequest object.";
 	return $r;
 }(this));
-{
-	var q = window.jQuery;
-	jquery.JQuery = q;
-	jquery.jQuery = q;
-}
 js.Lib.onerror = null;
 Main.main()

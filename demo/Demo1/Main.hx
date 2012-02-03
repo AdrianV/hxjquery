@@ -18,12 +18,12 @@ class Main {
 	
 	public static function animA() {
 		'#a'.qy().fadeIn(1000, function() {
-			JQueryX.currentThis.fadeOut(1000, Main.animA);
+			JQueryX.This.fadeOut(1000, Main.animA);
 		});		
 	}
 	public static function animB() {
 		'#b'.qy().fadeIn(2000, function() {
-			JQueryX.currentThis.fadeOut(1000, Main.animB);
+			JQueryX.This.fadeOut(1000, Main.animB);
 		});		
 	}
 	public static function startup() {

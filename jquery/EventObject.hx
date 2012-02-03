@@ -64,3 +64,4 @@ extern class EventObject implements Dynamic {
 }
 
 typedef EventHandler = EventObject-> Void;
+typedef EventHandler2 = EventObject-> Dynamic->Void;
