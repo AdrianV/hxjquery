@@ -19,9 +19,13 @@ extern class JMobile
 	static public function showPageLoadingMsg():Void;
 	static public function silentScroll(yPos: Int): Void;
 	static public var activePage: JQueryX; 
-	inline static public function page(p: js.JQuery): Void { return untyped p.page(); }
 	static public function closestPageData(t: js.JQuery): JQueryX;
+	inline static public function listview(j: js.JQuery): Void { return untyped j.listview(); }
+	inline static public function page(j: js.JQuery): Void { return untyped j.page(); }
+	inline static public function button(j: js.JQuery): Void { return untyped j.button(); }
+	inline static public function selectmenu(j: js.JQuery, command: String): Void { return untyped j.selectmenu(command); }
 }
+
 
 @:native("$.mobile.fixedToolbars")
 extern class FixedToolbars {

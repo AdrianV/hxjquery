@@ -47,6 +47,7 @@ extern class JQueryX extends js.JQuery
 	static inline function getMe(): JQueryX { return untyped __js__(_j); }
 	static public var me(getMe, null): JQueryX;
 	
+	static public inline function qyx(j: js.JQuery): JQueryX { return cast j; } 
 	static public inline function qy(query: String): JQueryX { return untyped __js__(_j)(query); }
 	static public inline function qyContext(query: String, context: Dynamic): JQueryX { return untyped __js__(_j)(query, context); }
 	
@@ -75,11 +76,11 @@ extern class JQueryX extends js.JQuery
 	@:overload( function (deep: Bool, target:Dynamic, ? obj1: Dynamic, ? obj2: Dynamic, ? obj3: Dynamic): Dynamic {})
 	public function extend(target: Dynamic, ? obj1: Dynamic, ? obj2: Dynamic, ? obj3: Dynamic): Dynamic;
 	
+	@:overload(function(props: Dynamic): JQueryX{})
 	@:overload(function(name:String,value:String): JQueryX{})
-	@:overload(function( props: Dynamic ): JQueryX {})
 	override function attr( name : String ) : String;
 	
-	
+	public inline function isChecked(): Bool { return attr('checked') == 'checked'; }
 	public var selector(default, null): String;
 
 	@:overload(function (p: Int): HtmlDom {})
@@ -190,6 +191,9 @@ extern class JQueryX extends js.JQuery
 	@:overload(function(events: String, selector: String, data: Dynamic, f: EventObject->Void):Void {})
 	@:overload(function(events: String, selector: String, f: EventObject->Void):Void {})
 	function on(events: String, f: EventObject->Void): Void;
+
+	@:overload(function(events: String, selector: String):Void {})
+	function off(events: String, ? f: EventObject->Void): Void;
 
 	function disableSelection(): JQueryX;
 	function enableSelection(): JQueryX;
