@@ -27,7 +27,7 @@ extern class Promise<T> implements Dynamic<T> {
 
 extern class Deferred<T> extends Promise<T> {
 	
-	@:overload (function (cbDone: Array<DeferredCallback>, cbFail: Array<DeferredCallback>): Deferred {})
+	//@:overload (function (cbDone: Array<DeferredCallback>, cbFail: Array<DeferredCallback>): Deferred<T> {})
 	public function then(cbDone: DeferredCallback<T>, cbFail: DeferredCallback<T>): Deferred<T>;
 
 }
@@ -50,6 +50,8 @@ extern class JQueryX extends js.JQuery
 	static public inline function qyx(j: js.JQuery): JQueryX { return cast j; } 
 	static public inline function qy(query: String): JQueryX { return untyped __js__(_j)(query); }
 	static public inline function qyContext(query: String, context: Dynamic): JQueryX { return untyped __js__(_j)(query, context); }
+	
+	static public inline function qyDocument(): JQueryX { return untyped __js__(_j)(document); }
 	
 	@:overload(function(d: Array<HtmlDom>): JQueryX {})
 	static public inline function qyDom(d: HtmlDom): JQueryX { return untyped __js__(_j)(d); }
@@ -90,7 +92,7 @@ extern class JQueryX extends js.JQuery
 	@:overload(function (call: SimpleCallback): Array < SimpleCallback > {})
 	@:overload(function (name: String, call: CallbackCallback): Array < SimpleCallback > {})
 	@:overload(function (name: String, call: SimpleCallback): Array < SimpleCallback > {}) 
-	override public function queue(? name: String ): { length : Int }; 
+	override public function queue( ?queueName : String, ?callb : (Void -> Void) -> Void ) : { length : Int }; 
 	
 	
 	public inline function valChecked(): Bool { return untyped this.val(); }
@@ -188,13 +190,15 @@ extern class JQueryX extends js.JQuery
 	//public inline function Die(?type: String, ?fn: EventHandler): JQueryX { return untyped this.die(type, fn); }
 	//public inline function Hover(over: EventHandler, out: EventHandler): JQueryX { return untyped this.hover(over, out); }
 
-	@:overload(function(events: String, selector: String, data: Dynamic, f: EventObject->Void):Void {})
-	@:overload(function(events: String, selector: String, f: EventObject->Void):Void {})
-	function on(events: String, f: EventObject->Void): Void;
+	@:overload(function(events: String, selector: String, data: Dynamic, f: EventObject->Void):JQueryX {})
+	@:overload(function(events: String, selector: String, f: EventObject->Void):JQueryX {})
+	function on(events: String, f: EventObject->Void): JQueryX;
 
-	@:overload(function(events: String, selector: String):Void {})
-	function off(events: String, ? f: EventObject->Void): Void;
+	@:overload(function(events: String, selector: String, ? f: EventObject->Void):JQueryX {})
+	function off(events: String, ? f: EventObject->Void): JQueryX;
 
+	inline function newclick(f: EventObject->Void): JQueryX { return off('click').on('click', f); }
+	
 	function disableSelection(): JQueryX;
 	function enableSelection(): JQueryX;
 	
@@ -203,7 +207,7 @@ extern class JQueryX extends js.JQuery
 	override function toggle( ?duration : Int, ?call : Void -> Void ) : js.JQuery;
 	
 		
-	@:overload(function animate( properties : { }, options : { }): JQueryX {})
+	@:overload(function ( properties : { }, options : { }): JQueryX {})
 	override function animate( properties : { }, ?duration : Int, ?callb : Void -> Void ) : js.JQuery;
 	
 	@:overload(function (easing: String, ? call: Void -> Void): JQueryX {})
