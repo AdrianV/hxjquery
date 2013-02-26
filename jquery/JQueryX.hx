@@ -4,9 +4,12 @@
  */
 
 package jquery;
-import js.Dom;
-import js.XMLHttpRequest;
+
+import js.JQuery;
+//import js.Dom;
+//import js.XMLHttpRequest;
 import jquery.EventObject;
+import js.html.Node;
 
 
 
@@ -44,8 +47,8 @@ extern class JQueryX extends js.JQuery
 	#else
 	static public inline var _j = "$";
 	#end
-	static inline function getMe(): JQueryX { return untyped __js__(_j); }
-	static public var me(getMe, null): JQueryX;
+	static inline function get_me(): JQueryX { return untyped __js__(_j); }
+	static public var me(get, null): JQueryX;
 	
 	static public inline function qyx(j: js.JQuery): JQueryX { return cast j; } 
 	static public inline function qy(query: String): JQueryX { return untyped __js__(_j)(query); }
@@ -53,17 +56,19 @@ extern class JQueryX extends js.JQuery
 	
 	static public inline function qyDocument(): JQueryX { return untyped __js__(_j)(document); }
 	
-	@:overload(function(d: Array<HtmlDom>): JQueryX {})
-	static public inline function qyDom(d: HtmlDom): JQueryX { return untyped __js__(_j)(d); }
+	@:overload(function(d: Array<Node>): JQueryX {})
+	static public inline function qyDom(d: Node): JQueryX { return untyped __js__(_j)(d); }
 	
 	static public inline function qyAny(e: Dynamic): JQueryX { return untyped __js__(_j)(e); }
 	static public inline function fromHtml(html: String, ?doc: Dynamic): JQueryX { return untyped (jQuery(html, doc)); }
 	
-	static inline function getCurrentThis(): JQueryX { return untyped __js__("jQuery(this)"); }
-	static public var currentThis(getCurrentThis, null): JQueryX;
-	static public var This(getCurrentThis, null): JQueryX;
+	static public var currentThis(get, null): JQueryX;
+	static private inline function get_currentThis(): JQueryX { return untyped __js__("jQuery(this)"); }
+	static public var This(get, null): JQueryX;
+	static private inline function get_This(): JQueryX { return untyped __js__("jQuery(this)"); }
 	
-	static public inline function ready(f: Void -> Void): JQueryX { return untyped (jQuery(f)); }
+	static public inline function start(f: Void -> Void): JQueryX { return untyped (jQuery(f)); }
+	
 	static public inline function dup(j: JQuery): JQueryX { return untyped (jQuery(j)); }
 	
 	static public inline function holdReady(hold: Bool): Void { return untyped jQuery.holdReady(hold); }
@@ -85,8 +90,8 @@ extern class JQueryX extends js.JQuery
 	public inline function isChecked(): Bool { return attr('checked') == 'checked'; }
 	public var selector(default, null): String;
 
-	@:overload(function (p: Int): HtmlDom {})
-	override function get() : Array<js.Dom.HtmlDom>;
+	@:overload(function (p: Int): js.html.Element {})
+	override function get() : Array<js.html.Element>;
 	
 	@:overload(function (call: CallbackCallback): Array < SimpleCallback > {})
 	@:overload(function (call: SimpleCallback): Array < SimpleCallback > {})
@@ -175,6 +180,7 @@ extern class JQueryX extends js.JQuery
 
 	@:overload(function ( events : String, data: Dynamic, callb : EventHandler2 ) : JQueryX {})
 	@:overload(function ( events : String, callb : EventHandler ) : JQueryX {})
+	@:overload(function ( events : String, callb : EventHandler2 ) : JQueryX {})
 	override function bind( events : String, callb : js.JQuery.JqEvent -> Void  ) : js.JQuery;
 	
 	//public inline function One(type: String, fn: EventHandler): JQueryX { return untyped this.one(type, fn); }
@@ -257,19 +263,19 @@ extern class JQueryX extends js.JQuery
 	@:overload(function (call: Void -> Void): JQueryX {})
 	override function slideToggle(? duration: Int, ? call: Void -> Void): js.JQuery;
 	
-	private static inline function getFX(): Bool { return untyped jQuery.fx.off; }
-	private static inline function setFX(value: Bool): Bool { return untyped jQuery.fx.off = value; }
-	public static var effects(getFX, setFX): Bool;
+	private static inline function get_effects(): Bool { return untyped jQuery.fx.off; }
+	private static inline function set_effects(value: Bool): Bool { return untyped jQuery.fx.off = value; }
+	public static var effects(get, set): Bool;
 	
 	// AJAX
 	
-	static inline function ajax(options: Dynamic): XMLHttpRequest { return untyped jQuery.ajax(options); }
+	static inline function ajax(options: Dynamic): js.html.XMLHttpRequest { return untyped jQuery.ajax(options); }
 	static inline function ajaxSetup(options: Dynamic): Void { return untyped jQuery.ajaxSetup(options); }
 	//public inline function LoadUrl(url: String, ? data: Dynamic, ?call: Void -> Void): JQueryX { return untyped this.load(url, data, call); }
-	static inline function getUrl(url: String, ? data: Dynamic, ?call: Void -> Void, ?type: String): XMLHttpRequest { return untyped jQuery.get(url, data, call, type); }
-	static inline function getJSON(url: String, ? data: Dynamic, ?call: Void -> Void): XMLHttpRequest { return untyped jQuery.getJSON(url, data, call); }
-	static inline function getScript(url: String, ?call: Void -> Void): XMLHttpRequest { return untyped jQuery.getScript(url, call); }
-	static inline function post(url: String, ? data: Dynamic, ?call: Void -> Void, ?type: String): XMLHttpRequest { return untyped jQuery.post(url, data, call); }
+	static inline function getUrl(url: String, ? data: Dynamic, ?call: Void -> Void, ?type: String): js.html.XMLHttpRequest { return untyped jQuery.get(url, data, call, type); }
+	static inline function getJSON(url: String, ? data: Dynamic, ?call: Void -> Void): js.html.XMLHttpRequest { return untyped jQuery.getJSON(url, data, call); }
+	static inline function getScript(url: String, ?call: Void -> Void): js.html.XMLHttpRequest { return untyped jQuery.getScript(url, call); }
+	static inline function post(url: String, ? data: Dynamic, ?call: Void -> Void, ?type: String): js.html.XMLHttpRequest { return untyped jQuery.post(url, data, call); }
 
 	public function ajaxComplete(call: Dynamic): JQueryX;
 	public function ajaxError(call: Dynamic): JQueryX;

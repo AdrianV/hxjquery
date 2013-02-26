@@ -1,6 +1,6 @@
 package jquery;
-import js.Dom;
-import js.XMLHttpRequest;
+//import js.Dom;
+//import js.XMLHttpRequest;
 
 typedef RequestObject = {
   var term: String;
@@ -25,11 +25,11 @@ extern class EventObject implements Dynamic {
 	public var clientX: Int;
 	public var clientY: Int;
 	public var ctrlKey: Bool;
-	public var currentTarget: HtmlDom;
+	public var currentTarget: js.html.Element;
 	public var data: Dynamic;
 	public var detail: Int;
 	public var eventPhase: Int;
-	public var fromElement: HtmlDom;
+	public var fromElement: js.html.Element;
 	public var handler: EventObject -> Void;
 	public var keyCode: Int;
 	public var layerX: Int;
@@ -38,19 +38,19 @@ extern class EventObject implements Dynamic {
 	public var newValue: String;
 	public var offsetX: Int;
 	public var offsetY: Int;
-	public var originalTarget: HtmlDom;
+	public var originalTarget: js.html.Element;
 	public var pageX: Int;
 	public var pageY: Int;
 	public var prevValue: String;
-	public var relatedNode: HtmlDom;
-	public var relatedTarget: HtmlDom;
+	public var relatedNode: js.html.Element;
+	public var relatedTarget: js.html.Element;
 	public var screenX: Int;
 	public var screenY: Int;
 	public var shiftKey: Bool;
-	public var srcElement: HtmlDom;
-	public var target: HtmlDom;
-	public var toElement: HtmlDom;
-	public var view: Window;
+	public var srcElement: js.html.Element;
+	public var target: js.html.Element;
+	public var toElement: js.html.Element;
+	public var view: js.html.DOMWindow;
 	public var wheelDelta: Int;
 	public var which: Int;
 	
