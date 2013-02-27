@@ -4,8 +4,7 @@
  */
 
 package jquery;
-import js.Dom;
-import js.XMLHttpRequest;
+import js.html.XMLHttpRequest;
 
 import jquery.EventObject;
 
@@ -35,16 +34,16 @@ extern class JQuery
 	
 	
 	public inline function Size(): Int { return untyped this.size(); }
-	public var Length(getLength, null): Int;
-	private inline function getLength(): Int { return untyped this.length; }
-	public var Selector(getSelector, null): String;
-	private inline function getSelector(): String { return untyped this.selector; }
-	public var Context(getContext, null): HtmlDom;
-	private inline function getContext(): HtmlDom { return untyped this.context; }
+	public var Length(get, null): Int;
+	private inline function get_Length(): Int { return untyped this.length; }
+	public var Selector(get, null): String;
+	private inline function get_Selector(): String { return untyped this.selector; }
+	public var Context(get, null): js.html.Node;
+	private inline function get_Context(): js.html.Node { return untyped this.context; }
 	
 	public inline function Eq(p: Int): JQuery { return untyped this.eq(p); }
-	public inline function Get(): Array<HtmlDom> { return untyped this.get(); }
-	public inline function GetAt(p: Int): HtmlDom { return untyped this.get(p); }
+	public inline function Get(): Array<js.html.Node> { return untyped this.get(); }
+	public inline function GetAt(p: Int): js.html.Node { return untyped this.get(p); }
 	public inline function Index(subject: Dynamic): Int { return untyped this.index(subject); }
 	public inline function Data(name: String): Dynamic { return untyped this.data(name); }
 	public inline function SetData(name: String, value: Dynamic): JQuery { return untyped this.data(name, value); }
@@ -117,11 +116,11 @@ extern class JQuery
 	public inline function InsertBefore(selector: String): JQuery { return untyped this.insertbefore(selector); }
 	
 	public inline function Wrap(content: String): JQuery { return untyped this.wrap(content); }	
-	public inline function WrapElement(el: HtmlDom): JQuery { return untyped this.wrap(el); }	
+	public inline function WrapElement(el: js.html.Node): JQuery { return untyped this.wrap(el); }	
 	public inline function WrapAll(content: String): JQuery { return untyped this.wrapAll(content); }	
-	public inline function WrapAllElement(el: HtmlDom): JQuery { return untyped this.wrapAll(el); }	
+	public inline function WrapAllElement(el: js.html.Node): JQuery { return untyped this.wrapAll(el); }	
 	public inline function WrapInner(content: String): JQuery { return untyped this.wrapInner(content); }	
-	public inline function WrapInnerElement(el: HtmlDom): JQuery { return untyped this.wrapInner(el); }	
+	public inline function WrapInnerElement(el: js.html.Node): JQuery { return untyped this.wrapInner(el); }	
 
 	public inline function ReplaceWith(content: String): JQuery { return untyped this.replaceWith(content); }	
 	public inline function ReplaceAll(selector: String): JQuery { return untyped this.replaceAll(selector); }	
@@ -222,9 +221,9 @@ extern class JQuery
 	public inline function Animate(params: Dynamic, options: Dynamic, ?easing: String, ?call: Void -> Void): JQuery { return untyped this.animate(params, options, easing, call); }
 	public inline function Stop(?clearQueue: Bool, ?gotoEnd: Bool): JQuery { return untyped this.stop(clearQueue, gotoEnd); }
 
-	private static inline function getFX(): Bool { return untyped jQuery.fx.off; }
-	private static inline function setFX(value: Bool): Bool { return untyped jQuery.fx.off = value; }
-	public static var Effects(getFX, setFX): Bool;
+	private static inline function get_FX(): Bool { return untyped jQuery.fx.off; }
+	private static inline function set_FX(value: Bool): Bool { return untyped jQuery.fx.off = value; }
+	public static var Effects(get, set): Bool;
 	
 	// AJAX
 	
@@ -299,7 +298,7 @@ extern class JQuery
 	public inline function Tabs(?param: Dynamic): JQuery { return untyped this.tabs(param); }
 	public inline function TabsOption(name: String, ?value: Dynamic ): JQuery { return untyped this.tabs('option', name, value); }
 
-	@:macro private static function __init__() : Void {
+	macro private static function __init__() : Void {
 		if ( ! haxe.macro.Context.defined("display"))
 			haxe.macro.Compiler.exclude("jquery.JQuery");
 	}
