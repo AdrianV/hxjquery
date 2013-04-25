@@ -198,12 +198,12 @@ extern class JQueryX extends js.JQuery
 
 	@:overload(function(events: String, selector: String, data: Dynamic, f: EventObject->Void):JQueryX {})
 	@:overload(function(events: String, selector: String, f: EventObject->Void):JQueryX {})
-	function on(events: String, f: EventObject->Void): JQueryX;
+	override function on(events: String, f: js.JqEvent->Void): JQueryX;
 
 	@:overload(function(events: String, selector: String, ? f: EventObject->Void):JQueryX {})
 	function off(events: String, ? f: EventObject->Void): JQueryX;
 
-	inline function newclick(f: EventObject->Void): JQueryX { return off('click').on('click', f); }
+	inline function newclick(f: js.JqEvent->Void): JQueryX { return off('click').on('click', f); }
 	
 	function disableSelection(): JQueryX;
 	function enableSelection(): JQueryX;
