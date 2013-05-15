@@ -5,11 +5,23 @@ package jquery;
  * @author 
  */
 
+import js.JQuery; 
 using jquery.JQueryX; 
 
+typedef SelectMenuOptions = {
+	? var corners: Bool;
+}
+
+typedef ButtonOptions = {
+	? var corners: Bool;
+}
+
 @:native("$.mobile")
-extern class JMobile 
+extern class JMobile extends JQueryX  
 {
+	static public inline function jqm(j: js.JQuery): JMobile { return cast j; } 
+	@:overload(inline function(j: js.JQuery): JMobile { } )
+	static public inline function qy(query: String): JMobile { return untyped __js__(JQueryX._j)(query); }
 	@:overload(function(p:JQueryX, ? options: Dynamic):Void {} )
 	static public function changePage(p: String, ? options: Dynamic): Void;
 	
@@ -18,14 +30,22 @@ extern class JMobile
 	static public function hidePageLoadingMsg():Void;
 	static public function showPageLoadingMsg():Void;
 	static public function silentScroll(yPos: Int): Void;
-	static public var activePage: JQueryX; 
-	static public function closestPageData(t: js.JQuery): JQueryX;
-	inline static public function listview(j: js.JQuery): Void { return untyped j.listview(); }
-	inline static public function page(j: js.JQuery): Void { return untyped j.page(); }
-	inline static public function button(j: js.JQuery): Void { return untyped j.button(); }
-	inline static public function selectmenu(j: js.JQuery, command: String, ? data: Dynamic): Void { return untyped j.selectmenu(command, data); }
+	static public var activePage: JMobile; 
+	static public function closestPageData(t: js.JQuery): JMobile;
+	override public function button(?param: ButtonOptions): JMobile;
+	//public function button(): Void;
+	public function collapsibleset(? command: String): JMobile;
+	public function listview(? command: String): JMobile;
+	public function page(? command: String): JMobile;
+	@:overload(function(options: SelectMenuOptions):JMobile {} )
+	public function selectmenu(command: String, ? param: Bool): JMobile;
+	
 }
 
+extern class JMobilePanel 
+{
+	inline static public function panel(j: JQuery, command: String): Void { return untyped j.panel(command); }
+}
 
 @:native("$.mobile.fixedToolbars")
 extern class FixedToolbars {
@@ -64,148 +84,3 @@ extern class Path {
 	static public function isAbsoluteUrl(Url1: String, Url2: String): Bool;
 }
 
-typedef DateBoxOptions = {
-	@:optional var mode: String;
-	@:optional var lockInput: Bool;
-	@:optional var enhanceInput: Bool;
-	@:optional var defaultValue: Dynamic;
-	@:optional var startOffsetYears: Int;
-	@:optional var startOffsetMonths: Int;
-	@:optional var startOffsetDays: Int;
-	// Display Options
-	@:optional var centerHoriz: Bool;
-	@:optional var centerVert: Bool;
-	@:optional var transition: String;
-	@:optional var useAnimation: Bool;
-	@:optional var hideInput: Bool;
-	@:optional var hideFixedToolbars: Bool;
-	@:optional var zindex: Int;
-	@:optional var clickEvent: String;
-	@:optional var clickEventAlt: String;
-	@:optional var resizeListener: Bool;
-	@:optional var dialogEnable: Bool;
-	@:optional var dialogForce: Bool;
-	@:optional var useModal: Bool;
-	@:optional var useInline: Bool;
-	@:optional var useInlineBlind: Bool;
-	@:optional var useButton: Bool;
-	@:optional var useFocus: Bool;
-	@:optional var usePlaceholder: Bool;
-	@:optional var useNewStyle: Bool;
-	@:optional var useAltIcon: Bool;
-	@:optional var overrideStyleClass: String;
-	//Control Options
-	@:optional var useHeader: Bool;
-	@:optional var useImmediate: Bool;
-	@:optional var useClearButton: Bool;
-	@:optional var useSetButton: Bool;
-	@:optional var useTodayButton: Bool;
-	@:optional var useCollapsedBut: Bool;
-	@:optional var rolloverMode: { m: Bool, d: Bool, h: Bool, i: Bool,s: Bool };
-	@:optional var slen: {y: Int, m:Int, d:Int, h:Int, i:Int};
-	@:optional var flen: {y: Int, m:Int, d:Int, h:Int, i:Int,a:Int};
-	@:optional var calShowDays: Bool;
-	@:optional var calShowWeek: Bool;
-	@:optional var calOnlyMonth: Bool;
-	@:optional var calWeekMode: Bool;
-	@:optional var calWeekModeDay: Bool;
-	//Callback Options
-	@:optional var openCallback: Dynamic->Void;
-	@:optional var openCallbackArgs: Array<Dynamic>;
-	@:optional var closeCallback: Dynamic->Void;
-	@:optional var closeCallbackArgs: Array<Dynamic>;
-	//Date Limiting Options
-	@:optional var afterToday: Bool;
-	@:optional var beforeToday: Bool;
-	@:optional var notToday: Bool;
-	@:optional var maxDays: Int;
-	@:optional var minDays: Int;
-	@:optional var maxYear: Int;
-	@:optional var minYear: Int;
-	@:optional var blackDatesRec: Array<Array<Int>>;
-	@:optional var blackDates: Array<Date>;
-	@:optional var blackDays: Array<Int>;
-	@:optional var enableDates: Array<Date>;
-	@:optional var minHour: Int;
-	@:optional var maxHour: Int;
-	@:optional var validHours: Array<Int>;
-	@:optional var minuteStep: Int;
-	@:optional var minuteStepRound: Int;
-	@:optional var highDays: Array<Int>;
-	@:optional var highDates: Array<Date>;
-	@:optional var highDatesRec: Array<Array<Int>>;
-	@:optional var highDatesAlt: Array<Date>;
-	@:optional var calShowDateList: Bool;
-	@:optional var calDateList: Array<Array<Dynamic>>;
-	@:optional var durationSteppers: { d: Int, h: Int, i: Int, s: Int };
-	// Theme Options
-	@:optional var theme: Bool;
-	@:optional var themeHeader: String;
-	@:optional var themeDateHigh: String;
-	@:optional var themeDatePick: String;
-	@:optional var themeDate: String;
-	@:optional var themeButton: String;
-	@:optional var themeInput: String;
-	@:optional var themeDateToday: String;
-	@:optional var themeDayHigh: String;
-	@:optional var themeDateHighAlt: String;
-	@:optional var themeDateHighRec: String;
-	//@:optional var themeDate: String;
-	@:optional var calUsePickers: Bool;
-	@:optional var calNoHeader: Bool;
-	@:optional var calHighToday: Bool;
-	@:optional var calHighPick: Bool;
-	@:optional var calWeekHigh: Bool;
-	@:optional var calControlGroup: Bool;
-	@:optional var customData: Array<Dynamic>;
-	@:optional var themeOptPick: String;
-	@:optional var themeOpt: String;
-	@:optional var overrideCustomSet: String;
-	@:optional var customDefault: Array<Int>;
-	//
-	@:optional var setDateButtonLabel: String;
-	@:optional var setTimeButtonLabel: String;
-	@:optional var setDurationButtonLabel: String;
-	@:optional var calTodayButtonLabel: String;
-	@:optional var titleDateDialogLabel: String;
-	@:optional var titleTimeDialogLabel: String;
-	@:optional var daysOfWeek: Array<String>;
-	@:optional var daysOfWeekShort: Array<String>;
-	@:optional var monthsOfYear: Array<String>;
-	@:optional var monthsOfYearShort: Array<String>;
-	@:optional var durationLabel: Array<String>;
-	@:optional var durationDays: Array<String>;
-	@:optional var timeFormat: Int;
-	@:optional var headerFormat: String;
-	@:optional var tooltip: String;
-	@:optional var nextMonth: String;
-	@:optional var prevMonth: String;
-	@:optional var dateFieldOrder: Array<String>;
-	@:optional var timeFieldOrder: Array<String>;
-	@:optional var slideFieldOrder: Array<String>;
-	@:optional var overrideSlideFieldOrder: Array<String>;
-	@:optional var overrideDateFormat: String;
-	@:optional var useArabicIndic: Int;
-	@:optional var isRTL: Int;
-	@:optional var calStartDay: Int;
-	@:optional var clearButton: String;
-	@:optional var durationOrder: Array<String>;
-	@:optional var meridiem: Array<String>;
-	@:optional var timeOutput: String;
-	@:optional var durationFormat: String;
-	@:optional var calDateListLabel: String;
-}
-
-extern class DateBox {
-	static public inline function datebox_options(j: JQueryX, param: DateBoxOptions): JQueryX { return untyped j.datebox(param);  }
-	static public inline function datebox_call(j: JQueryX, method: String): Dynamic { return untyped j.datebox(method);  }
-	static public inline function datebox_callFormat(j: JQueryX, format: String, date: Date): String { return untyped j.datebox('callFormat', format, date);  }
-	static public inline function datebox_open(j: JQueryX): JQueryX { return untyped j.datebox('open');  }
-	static public inline function datebox_close(j: JQueryX): JQueryX { return untyped j.datebox('close');  }
-	static public inline function datebox_disable(j: JQueryX): JQueryX { return untyped j.datebox('disable');  }
-	static public inline function datebox_enable(j: JQueryX): JQueryX { return untyped j.datebox('enable');  }
-	static public inline function datebox_refresh(j: JQueryX): JQueryX { return untyped j.datebox('refresh');  }
-	static public inline function datebox_getTheDate(j: JQueryX): Date { return untyped j.datebox('getTheDate');  }
-	static public inline function datebox_setTheDate(j: JQueryX, theDate: Date): JQueryX { return untyped j.datebox('setTheDate', theDate);  }
-	static public inline function datebox_getLastDur(j: JQueryX): Float { return untyped j.datebox('getLastDur');  }
-}
