@@ -124,6 +124,7 @@ typedef DateBoxOptions = {
 	@:optional var nextMonth: String;
 	@:optional var prevMonth: String;
 	@:optional var dateFieldOrder: Array<String>;
+	@:optional var overrideDateFieldOrder: Array<String>;
 	@:optional var timeFieldOrder: Array<String>;
 	@:optional var overrideTimeFieldOrder: Array<String>;
 	@:optional var slideFieldOrder: Array<String>;

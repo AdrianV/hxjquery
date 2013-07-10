@@ -32,7 +32,11 @@ extern class JMobile extends JQueryX
 	static public function silentScroll(yPos: Int): Void;
 	static public var activePage: JMobile; 
 	static public function closestPageData(t: js.JQuery): JMobile;
+	
+	@:overload(function (option: String, name: String, param: Dynamic): Dynamic {})
+	@:overload(function (name: String, ?param: Dynamic): Dynamic {})
 	override public function button(?param: ButtonOptions): JMobile;
+	public function buttonMarkup(?param: Dynamic): JMobile;
 	//public function button(): Void;
 	public function collapsibleset(? command: String): JMobile;
 	public function listview(? command: String): JMobile;

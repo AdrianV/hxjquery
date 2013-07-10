@@ -51,6 +51,8 @@ extern class JQueryX extends js.JQuery
 	static public var me(get, null): JQueryX;
 	
 	static public inline function qyx(j: js.JQuery): JQueryX { return cast j; } 
+
+	@:overload(function(query: Node): JQueryX {})
 	static public inline function qy(query: String): JQueryX { return untyped __js__(_j)(query); }
 	static public inline function qyContext(query: String, context: Dynamic): JQueryX { return untyped __js__(_j)(query, context); }
 	
@@ -201,10 +203,10 @@ extern class JQueryX extends js.JQuery
 	override function on(events: String, f: js.JqEvent->Void): JQueryX;
 
 	@:overload(function(events: String, selector: String, ? f: EventObject->Void):JQueryX {})
-	function off(events: String, ? f: EventObject->Void): JQueryX;
+	function off(events: String, ? f: js.JqEvent->Void): JQueryX;
 
 	inline function newclick(f: js.JqEvent->Void): JQueryX { return off('click').on('click', f); }
-	
+	inline function attachHandler(event: String, f: js.JqEvent->Void): JQueryX { return off(event).on(event, f); }
 	function disableSelection(): JQueryX;
 	function enableSelection(): JQueryX;
 	
