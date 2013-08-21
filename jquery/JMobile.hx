@@ -43,6 +43,7 @@ extern class JMobile extends JQueryX
 	public function page(? command: String): JMobile;
 	@:overload(function(options: SelectMenuOptions):JMobile {} )
 	public function selectmenu(command: String, ? param: Bool): JMobile;
+	//public function slider(command: String): JMobile;
 	
 }
 
