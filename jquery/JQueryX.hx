@@ -374,6 +374,7 @@ extern class JQueryX extends js.JQuery
 	public function tabs(?param: Dynamic): JQueryX;
 	public inline function tabsOption(name: String, ?value: Dynamic ): Dynamic { return this.tabs('option', name, value); }
 	
+	public function tooltip(? options: Dynamic): JQueryX;
 }
 
 #if iDontNeedThis
