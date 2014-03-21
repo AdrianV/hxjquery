@@ -5,6 +5,7 @@ package jquery;
  * @author 
  */
 
+import jquery.JMobile.PagecontainerChangeOptions;
 import js.JQuery; 
 using jquery.JQueryX; 
 
@@ -14,6 +15,26 @@ typedef SelectMenuOptions = {
 
 typedef ButtonOptions = {
 	? var corners: Bool;
+}
+
+typedef PagecontainerOptions = {
+	? defaults: Bool,
+	? disabled: Bool,
+	? theme: String,
+}
+
+typedef PagecontainerChangeOptions = {
+	? allowSamePageTransition: Bool,
+	? changeHash: Bool,
+	? dataUrl: String,
+	? loadMsgDelay: Int,
+	? reloadPage: Bool,
+	? reload: Bool,
+	? reverse: Bool,
+	? role: String,
+	? showLoadMsg: Bool,
+	? transition: String,
+	? type: String,
 }
 
 @:native("$.mobile")
@@ -30,6 +51,8 @@ extern class JMobile extends JQueryX
 	static public function hidePageLoadingMsg():Void;
 	static public function showPageLoadingMsg():Void;
 	static public function silentScroll(yPos: Int): Void;
+	static public function back(): Void;
+	
 	static public var activePage: JMobile; 
 	static public function closestPageData(t: js.JQuery): JMobile;
 	
@@ -38,12 +61,39 @@ extern class JMobile extends JQueryX
 	override public function button(?param: ButtonOptions): JMobile;
 	public function buttonMarkup(?param: Dynamic): JMobile;
 	//public function button(): Void;
+	
 	public function collapsibleset(? command: String): JMobile;
 	public function listview(? command: String): JMobile;
 	public function page(? command: String): JMobile;
 	@:overload(function(options: SelectMenuOptions):JMobile {} )
 	public function selectmenu(command: String, ? param: Bool): JMobile;
 	//public function slider(command: String): JMobile;
+	public function checkboxradio(command: String): JMobile;
+	
+	@:overload(function (name: String, ?param1: Dynamic, ?param2: Dynamic): Dynamic {})
+	public function pagecontainer(? options: PagecontainerOptions): JMobile;
+	static public var pageContainer(default, null): JMobile;
+	
+	public function popup(? command: String, ? options: Dynamic): JMobile;
+}
+
+@:native("j.m.x")
+private class JMobileExtImpl {
+	
+	static public function toggleButton(me: JMobile, disabled: Bool, themeNormal: String, themeDisabled: String): JMobile {
+		if ( !disabled ) {
+			me.removeClass('ui-disabled ui-btn-$themeDisabled').addClass('ui-btn-$themeNormal');
+			return me;
+		} else {
+			me.removeClass('ui-btn-$themeNormal').addClass('ui-disabled ui-btn-$themeDisabled');
+			return me;
+		}
+	}	
+}
+
+abstract JMobileExtension(JMobile) from JMobile to JMobile {
+	public inline function toggleButton(disabled: Bool, themeNormal: String, themeDisabled: String): JMobile return JMobileExtImpl.toggleButton(this, disabled, themeNormal, themeDisabled);
+	public inline function pagecontainerChange(url: String, options: PagecontainerChangeOptions): JMobile return this.pagecontainer(url, options);
 	
 }
 
