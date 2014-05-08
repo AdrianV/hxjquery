@@ -21,7 +21,16 @@ extern class DataView<T>
 	public function refresh(): Void;
 	public function setFilter(filter: T->Bool): Void;
 	public function sort(comparer: T->T->Int, ascending: Bool): Void;
-	
+	public function getIdxById(id: String): Null<Int>;
+	public function getRowById(id: String): Null<Int>;
+	public function getItemById(id: String): T;
+	public function getItemByIdx(idx: Int): T;
+	public function mapIdsToRows(idArray: Array<String>): Array<Int>;
+	public function mapRowsToIds(rowArray: Array<Int>): Array<String>;
+	public function updateItem(id: String, item: T): Void;
+	public function insertItem(insertBefore: Int, item: T): Void;
+	public function addItem(item: T): Void;
+	public function deleteItem(id: String): Void;
 	//EVENTS
 	public var onRowCountChanged(default, null): GridEventHandler<Void>;
 	public var onRowsChanged(default, null): GridEventHandler<Void>;

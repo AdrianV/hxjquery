@@ -12,8 +12,8 @@ import slick.Grid;
 extern class Formatters
 {
 
-	static public var PercentComplete(default, null): FormaterCall;
-	static public var PercentCompleteBar(default, null): FormaterCall;
-	static public var YesNo(default, null): FormaterCall;
-	static public var Checkmark(default, null): FormaterCall;	
+	static public var PercentComplete(default, null): FormaterCall<Dynamic>;
+	static public var PercentCompleteBar(default, null): FormaterCall<Dynamic>;
+	static public var YesNo(default, null): FormaterCall<Dynamic>;
+	static public var Checkmark(default, null): FormaterCall<Dynamic>;
 }

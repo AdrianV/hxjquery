@@ -75,6 +75,12 @@ extern class JMobile extends JQueryX
 	static public var pageContainer(default, null): JMobile;
 	
 	public function popup(? command: String, ? options: Dynamic): JMobile;
+	public function textinput(? command: String, ? options: Dynamic): JMobile;
+	public function enhanceWithin(): JMobile;
+	public function date(? command: String, ? options: Dynamic): JMobile;
+	public inline function dateGetDate(): Date { return untyped this.date('getDate'); }
+	public inline function dateSetDate(value: Date): Date { return untyped this.date('setDate', value); }
+	
 }
 
 @:native("j.m.x")

@@ -89,7 +89,9 @@ extern class JQueryX extends js.JQuery
 	@:overload(function(name:String,value:String): JQueryX{})
 	override function attr( name : String ) : String;
 	
-	public inline function isChecked(): Bool { return attr('checked') == 'checked'; }
+	public inline function isChecked(): Bool { return prop('checked'); }
+	public inline function setChecked(val: Bool): JQueryX { return qyx(prop( "checked", val)); }
+	
 	public var selector(default, null): String;
 
 	@:overload(function (p: Int): js.html.Element {})
