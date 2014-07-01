@@ -37,6 +37,24 @@ typedef PagecontainerChangeOptions = {
 	? type: String,
 }
 
+@:enum abstract WidgetCommand(String) {
+	var destroy = "destroy";
+	var disable = "disable";
+	var enable = "enable";
+	var option = "option";
+	var refresh = "refresh";
+}
+
+@:enum abstract PopupCommand(String) {
+	var close = "close";
+	var destroy = "destroy";
+	var disable = "disable";
+	var enable = "enable";
+	var open = "open";
+	var option = "option";
+	var refresh = "reposition";
+}
+
 @:native("$.mobile")
 extern class JMobile extends JQueryX  
 {
@@ -63,19 +81,26 @@ extern class JMobile extends JQueryX
 	//public function button(): Void;
 	
 	public function collapsibleset(? command: String): JMobile;
-	public function listview(? command: String): JMobile;
+	
+	@:overload(function (): JMobile {})
+	public function listview(command: WidgetCommand, ? options: Dynamic): JMobile;
+	
 	public function page(? command: String): JMobile;
 	@:overload(function(options: SelectMenuOptions):JMobile {} )
 	public function selectmenu(command: String, ? param: Bool): JMobile;
 	//public function slider(command: String): JMobile;
-	public function checkboxradio(command: String): JMobile;
+	
+	public function checkboxradio(command: WidgetCommand, ? options: Dynamic): JMobile;
 	
 	@:overload(function (name: String, ?param1: Dynamic, ?param2: Dynamic): Dynamic {})
 	public function pagecontainer(? options: PagecontainerOptions): JMobile;
 	static public var pageContainer(default, null): JMobile;
 	
-	public function popup(? command: String, ? options: Dynamic): JMobile;
-	public function textinput(? command: String, ? options: Dynamic): JMobile;
+	@:overload(function (): JMobile {})
+	public function popup(command: PopupCommand, ? options: Dynamic): JMobile;
+	
+	@:overload(function (): JMobile {})
+	public function textinput(command: WidgetCommand, ? options: Dynamic): JMobile;
 	public function enhanceWithin(): JMobile;
 	public function date(? command: String, ? options: Dynamic): JMobile;
 	public inline function dateGetDate(): Date { return untyped this.date('getDate'); }
