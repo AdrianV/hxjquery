@@ -13,8 +13,38 @@ typedef SelectMenuOptions = {
 	? var corners: Bool;
 }
 
+@:enum abstract ButtonOptionName(String) {
+	var corners = "corners";
+	var disabled = "disabled";
+	var enhanced = "enhanced";
+	var icon = "icon";
+	var iconpos = "iconpos";
+	var initSelector = "initSelector";
+	var inline_ = "inline";
+	var mini = "mini";
+	var shadow = "shadow";
+	var theme = "theme";
+	var wrapperClass = "wrapperClass";
+}
+
 typedef ButtonOptions = {
-	? var corners: Bool;
+	? corners: Bool,
+	? disabled: Bool,
+	? enhanced: Bool,
+	? icon: String,
+	? iconpos: String,
+	? initSelector: String,
+	//? inline: Bool,
+	? mini: Bool,
+	? shadow: Bool,
+	? theme: String,
+	? wrapperClass: String,
+}
+
+@:enum abstract PagecontainerMethods(String) {
+	var change = "change";
+	var getActivePage = "getActivePage";
+	var load = "load";
 }
 
 typedef PagecontainerOptions = {
@@ -37,6 +67,25 @@ typedef PagecontainerChangeOptions = {
 	? type: String,
 }
 
+typedef PagecontainerEvent = Dynamic->Dynamic-> Void;
+
+typedef PagecontainerEvents = {
+	? beforechange: PagecontainerEvent,
+	? beforehide: PagecontainerEvent,
+	? beforeload: PagecontainerEvent,
+	? beforeshow: PagecontainerEvent,
+	? beforetransition: PagecontainerEvent,
+	? change: PagecontainerEvent,
+	? changefailed: PagecontainerEvent,
+	? create: PagecontainerEvent,
+	? hide: PagecontainerEvent,
+	? load: PagecontainerEvent,
+	? loadfailed: PagecontainerEvent,
+	? remove: PagecontainerEvent,
+	? show: PagecontainerEvent,
+	? transition: PagecontainerEvent,
+}
+
 @:enum abstract WidgetCommand(String) {
 	var destroy = "destroy";
 	var disable = "disable";
@@ -55,11 +104,31 @@ typedef PagecontainerChangeOptions = {
 	var refresh = "reposition";
 }
 
+@:enum abstract PanelCommand(String) {
+	var close = "close";
+	var destroy = "destroy";
+	var open = "open";
+	var option = "option";
+	var toggle = "toggle";
+}
+
+@:enum abstract PanelOption(String) {
+	var animate = "animate";
+	var defaults = "defaults";
+	var disabled = "disabled";
+	var dismissible = "dismissible";
+	var display = "display";
+	var position = "position";
+	var positionFixed = "positionFixed";
+	var swipeClose = "swipeClose";
+	var theme = "theme";
+}
+
 @:native("$.mobile")
 extern class JMobile extends JQueryX  
 {
 	static public inline function jqm(j: js.JQuery): JMobile { return cast j; } 
-	@:overload(inline function(j: js.JQuery): JMobile { } )
+	@:overload(function(j: js.JQuery): JMobile { } )
 	static public inline function qy(query: String): JMobile { return untyped __js__(JQueryX._j)(query); }
 	@:overload(function(p:JQueryX, ? options: Dynamic):Void {} )
 	static public function changePage(p: String, ? options: Dynamic): Void;
@@ -74,8 +143,9 @@ extern class JMobile extends JQueryX
 	static public var activePage: JMobile; 
 	static public function closestPageData(t: js.JQuery): JMobile;
 	
-	@:overload(function (option: String, name: String, param: Dynamic): Dynamic {})
-	@:overload(function (name: String, ?param: Dynamic): Dynamic {})
+	@:overload(function (command: WidgetCommand, name: ButtonOptionName, param: Dynamic): Void {})
+	@:overload(function (name: WidgetCommand, name: ButtonOptionName): Dynamic {})
+	@:overload(function (name: WidgetCommand): JMobile {})
 	override public function button(?param: ButtonOptions): JMobile;
 	public function buttonMarkup(?param: Dynamic): JMobile;
 	//public function button(): Void;
@@ -92,10 +162,15 @@ extern class JMobile extends JQueryX
 	
 	public function checkboxradio(command: WidgetCommand, ? options: Dynamic): JMobile;
 	
-	@:overload(function (name: String, ?param1: Dynamic, ?param2: Dynamic): Dynamic {})
+	@:overload(function (method: PagecontainerMethods, ?param1: Dynamic, ?param2: Dynamic): Dynamic {})
+	@:overload(function (events: PagecontainerEvents): Void {})
 	public function pagecontainer(? options: PagecontainerOptions): JMobile;
 	static public var pageContainer(default, null): JMobile;
 	
+	@:overload(function (command: PanelCommand, option: PanelOption): Dynamic {})
+	@:overload(function (command: PanelCommand, option: PanelOption, value: Dynamic): Void {})
+	public function panel(command: PanelCommand): JMobile;
+
 	@:overload(function (): JMobile {})
 	public function popup(command: PopupCommand, ? options: Dynamic): JMobile;
 	
@@ -124,7 +199,7 @@ private class JMobileExtImpl {
 
 abstract JMobileExtension(JMobile) from JMobile to JMobile {
 	public inline function toggleButton(disabled: Bool, themeNormal: String, themeDisabled: String): JMobile return JMobileExtImpl.toggleButton(this, disabled, themeNormal, themeDisabled);
-	public inline function pagecontainerChange(url: String, options: PagecontainerChangeOptions): JMobile return this.pagecontainer(url, options);
+	public inline function pagecontainerChange(url: String, options: PagecontainerChangeOptions): JMobile return this.pagecontainer(change, url, options);
 	
 }
 
