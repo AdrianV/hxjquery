@@ -5,13 +5,41 @@
 
 package jquery;
 
-import js.JQuery;
+import js.jquery.JQuery;
+import js.jquery.Helper;
+//import js.JQuery;
 //import js.Dom;
 //import js.XMLHttpRequest;
-import jquery.EventObject;
-import js.html.Node;
+//import jquery.EventObject;
+//import js.html.Node;
 
+@:hack
+@:native("$")
+extern class JQueryX extends js.jquery.JQuery
+{
+	static public inline function qyx(j: js.jquery.JQuery): JQueryX { return cast j; } 
+	
+	@:overload(function(query: js.html.Node): JQueryX {})
+	static public inline function qy(query: String): JQueryX { return cast new JQuery(query); }
+	
+	static public inline function jqm(j: js.jquery.JQuery): jquery.JMobile { return cast j; }
+	static public inline function jqui(j: js.jquery.JQuery): jquery.JQueryUI { return cast j; }
+	
+	public inline function iHeight(): Int return Std.int(height());
+	public inline function iWidth(): Int return Std.int(width());
+	
+	static public var This(get, null): JQueryX;
+	static private inline function get_This(): JQueryX return cast new js.jquery.JQuery(js.Lib.nativeThis);
+	
+	static public inline function start(f: Void -> Void): JQueryX { return cast new js.jquery.JQuery(f); }
+	
+	public inline function isChecked(): Bool { return prop('checked'); }
+	public inline function setChecked(val: Bool): JQueryX { return qyx(prop( "checked", val)); }
+	
+	inline function replaceHandler(event: String = "click", f: js.jquery.Event->Void): JQueryX { return qyx(off(event).on(event, f)); }
+}
 
+#if false
 
 typedef DeferredCallback<T> = T -> Void;
 
@@ -38,8 +66,12 @@ extern class Deferred<T> extends Promise<T> {
 typedef SimpleCallback = Void->Void;
 typedef CallbackCallback = SimpleCallback->Void;
 
+#end
+
+
+#if false
 @:native("js.JQuery")
-extern class JQueryX extends js.JQuery
+extern class JQueryXOld extends js.JQuery
 {
 
 	#if qualifiedJquery
@@ -378,6 +410,7 @@ extern class JQueryX extends js.JQuery
 	
 	public function tooltip(? options: Dynamic): JQueryX;
 }
+#end
 
 #if iDontNeedThis
 private class JQueryImplementation {

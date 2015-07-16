@@ -6,7 +6,7 @@ package jquery;
  */
 
 import jquery.JMobile.PagecontainerChangeOptions;
-import js.JQuery; 
+import js.jquery.JQuery; 
 using jquery.JQueryX; 
 
 typedef SelectMenuOptions = {
@@ -127,9 +127,12 @@ typedef PagecontainerEvents = {
 @:native("$.mobile")
 extern class JMobile extends JQueryX  
 {
-	static public inline function jqm(j: js.JQuery): JMobile { return cast j; } 
-	@:overload(function(j: js.JQuery): JMobile { } )
-	static public inline function qy(query: String): JMobile { return untyped __js__(JQueryX._j)(query); }
+	//static public inline function jqm(j: js.jquery.JQuery): JMobile { return cast j; } 
+	//@:overload(function(j: js.jquery.JQuery): JMobile { } )
+	//static public inline function qy(query: String): JMobile { return untyped __js__(JQueryX._j)(query); }
+	@:overload(function(query: js.html.Node): JMobile {})
+	static public inline function qym(query: String): JMobile { return cast new JQuery(query); }
+	
 	@:overload(function(p:JQueryX, ? options: Dynamic):Void {} )
 	static public function changePage(p: String, ? options: Dynamic): Void;
 	
@@ -141,12 +144,12 @@ extern class JMobile extends JQueryX
 	static public function back(): Void;
 	
 	static public var activePage: JMobile; 
-	static public function closestPageData(t: js.JQuery): JMobile;
+	static public function closestPageData(t: js.jquery.JQuery): JMobile;
 	
 	@:overload(function (command: WidgetCommand, name: ButtonOptionName, param: Dynamic): Void {})
 	@:overload(function (name: WidgetCommand, name: ButtonOptionName): Dynamic {})
 	@:overload(function (name: WidgetCommand): JMobile {})
-	override public function button(?param: ButtonOptions): JMobile;
+	public function button(?param: ButtonOptions): JMobile;
 	public function buttonMarkup(?param: Dynamic): JMobile;
 	//public function button(): Void;
 	
@@ -205,7 +208,7 @@ abstract JMobileExtension(JMobile) from JMobile to JMobile {
 
 extern class JMobilePanel 
 {
-	inline static public function panel(j: JQuery, command: String): Void { return untyped j.panel(command); }
+	inline static public function panel(j: js.jquery.JQuery, command: String): Void { return untyped j.panel(command); }
 }
 
 @:native("$.mobile.fixedToolbars")
