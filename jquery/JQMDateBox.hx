@@ -5,7 +5,7 @@ package jquery;
  * @author Adrian Veith
  */
 
-import js.JQuery;
+import js.jquery.JQuery;
 
 typedef DateBoxOptions = {
 	@:optional var mode: String;

@@ -70,6 +70,11 @@ extern class JQueryUI extends jquery.JQueryX
 	
 	@:overload(function (option: String, name: String, param: Dynamic): Dynamic {})
 	@:overload(function (name: String, ?param: Dynamic): Dynamic {})
+	public function selectmenu(?param: Dynamic): JQueryUI;
+	public inline function selectmenuOption(name: String, ?value: Dynamic ): Dynamic { return this.selectmenu('option', name, value); }
+
+	@:overload(function (option: String, name: String, param: Dynamic): Dynamic {})
+	@:overload(function (name: String, ?param: Dynamic): Dynamic {})
 	public function slider(?param: Dynamic): JQueryUI;
 	public inline function sliderOption(name: String, ?value: Dynamic ): Dynamic { return this.slider('option', name, value); }
 

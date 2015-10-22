@@ -184,6 +184,18 @@ extern class JMobile extends JQueryX
 	public inline function dateGetDate(): Date { return untyped this.date('getDate'); }
 	public inline function dateSetDate(value: Date): Date { return untyped this.date('setDate', value); }
 	
+	@:overload(function (option: String, name: String, param: Dynamic): Dynamic {})
+	@:overload(function (name: String, ?param: Dynamic): Dynamic {})
+	public function slider(?param: Dynamic): JQueryUI;
+	public inline function sliderOption(name: String, ?value: Dynamic ): Dynamic { return this.slider('option', name, value); }
+	
+	@:overload(function (option: String, name: String, param: Dynamic): Dynamic {})
+	@:overload(function (name: String, ?param: Dynamic): Dynamic {})
+	public function dialog(?param: Dynamic): JQueryUI;
+	public inline function dialogOption(name: String, ?value: Dynamic ): Dynamic { return this.dialog('option', name, value); }
+	public inline function dialogOptions(value: Dynamic ): Dynamic { return this.dialog('option', value); }
+	
+	
 }
 
 @:native("j.m.x")
