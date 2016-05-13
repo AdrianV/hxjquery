@@ -175,6 +175,7 @@ extern class JMobile extends JQueryX
 	public function panel(command: PanelCommand): JMobile;
 
 	@:overload(function (): JMobile {})
+	@:overload(function (command: PopupCommand = option, name: String, value: Dynamic): JMobile {})
 	public function popup(command: PopupCommand, ? options: Dynamic): JMobile;
 	
 	@:overload(function (): JMobile {})
