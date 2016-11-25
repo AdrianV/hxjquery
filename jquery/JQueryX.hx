@@ -5,8 +5,10 @@
 
 package jquery;
 
+#if !macro
 import js.jquery.JQuery;
 import js.jquery.Helper;
+#end
 //import js.JQuery;
 //import js.Dom;
 //import js.XMLHttpRequest;
@@ -15,8 +17,10 @@ import js.jquery.Helper;
 
 @:hack
 @:native("$")
-extern class JQueryX extends js.jquery.JQuery
+extern class JQueryX #if (!macro) extends js.jquery.JQuery #end
 {
+	#if !macro
+	
 	static public inline function qyx(j: js.jquery.JQuery): JQueryX { return cast j; } 
 	
 	@:overload(function(query: js.html.Node): JQueryX {})
@@ -36,7 +40,11 @@ extern class JQueryX extends js.jquery.JQuery
 	public inline function isChecked(): Bool { return prop('checked'); }
 	public inline function setChecked(val: Bool): JQueryX { return qyx(prop( "checked", val)); }
 	
-	inline function replaceHandler(event: String = "click", f: js.jquery.Event->Void): JQueryX { return qyx(off(event).on(event, f)); }
+	inline function replaceHandler(event: String = "click", f: js.jquery.Event->JQueryX->Void): JQueryX 
+	{ 
+		return qyx(off(event).on(event, function(e) f(e, JQueryX.This))); 
+	}
+	#end
 }
 
 #if false
