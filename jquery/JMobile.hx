@@ -5,7 +5,8 @@ package jquery;
  * @author 
  */
 
-import jquery.JMobile.PagecontainerChangeOptions;
+//import jquery.JMobile.PagecontainerChangeOptions;
+import haxe.extern.EitherType;
 import js.jquery.JQuery; 
 using jquery.JQueryX; 
 
@@ -104,6 +105,26 @@ typedef PagecontainerEvents = {
 	var refresh = "reposition";
 }
 
+typedef PopupOptions = {
+	? arrow: EitherType<Bool, String>,
+	? corners: Bool,
+	? defaults: Bool,
+	? disabled: Bool,
+	? dismissible: Bool,
+	? history: Bool,
+	? initSelector: String,
+	? overlayTheme: String,
+	? positionTo: String,
+	? shadow: Bool,
+	? theme: String,
+	? tolerance: String,
+	? transition: String,
+	? afterclose: Dynamic->Dynamic->Void,
+	? afteropen: Dynamic->Dynamic->Void,
+	? beforeposition: Dynamic->Dynamic->Void,
+	? create: Dynamic->Dynamic->Void,
+}
+
 @:enum abstract PanelCommand(String) {
 	var close = "close";
 	var destroy = "destroy";
@@ -130,6 +151,9 @@ extern class JMobile extends JQueryX
 	//static public inline function jqm(j: js.jquery.JQuery): JMobile { return cast j; } 
 	//@:overload(function(j: js.jquery.JQuery): JMobile { } )
 	//static public inline function qy(query: String): JMobile { return untyped __js__(JQueryX._j)(query); }
+	
+	//public inline function ext(): jquery.JMobile.JMobileExtension return this;
+
 	@:overload(function(query: js.html.Node): JMobile {})
 	static public inline function qym(query: String): JMobile { return cast new JQuery(query); }
 	
@@ -175,6 +199,7 @@ extern class JMobile extends JQueryX
 	public function panel(command: PanelCommand): JMobile;
 
 	@:overload(function (): JMobile {})
+	@:overload(function (options: PopupOptions): JMobile {})
 	@:overload(function (command: PopupCommand = option, name: String, value: Dynamic): JMobile {})
 	public function popup(command: PopupCommand, ? options: Dynamic): JMobile;
 	
@@ -196,6 +221,8 @@ extern class JMobile extends JQueryX
 	public inline function dialogOption(name: String, ?value: Dynamic ): Dynamic { return this.dialog('option', name, value); }
 	public inline function dialogOptions(value: Dynamic ): Dynamic { return this.dialog('option', value); }
 	
+	public inline function toggleButton(disabled: Bool, themeNormal: String, themeDisabled: String): JMobile return JMobileExtImpl.toggleButton(this, disabled, themeNormal, themeDisabled);
+	public inline function pagecontainerChange(url: String, options: PagecontainerChangeOptions): JMobile return pagecontainer(PagecontainerMethods.change, url, options);
 	
 }
 
@@ -213,11 +240,6 @@ private class JMobileExtImpl {
 	}	
 }
 
-abstract JMobileExtension(JMobile) from JMobile to JMobile {
-	public inline function toggleButton(disabled: Bool, themeNormal: String, themeDisabled: String): JMobile return JMobileExtImpl.toggleButton(this, disabled, themeNormal, themeDisabled);
-	public inline function pagecontainerChange(url: String, options: PagecontainerChangeOptions): JMobile return this.pagecontainer(change, url, options);
-	
-}
 
 extern class JMobilePanel 
 {
