@@ -154,6 +154,7 @@ extern class JMobile extends JQueryX
 	
 	//public inline function ext(): jquery.JMobile.JMobileExtension return this;
 
+	static public inline function qm(j: js.jquery.JQuery): jquery.JMobile { return cast j; }
 	@:overload(function(query: js.html.Node): JMobile {})
 	static public inline function qym(query: String): JMobile { return cast new JQuery(query); }
 	

@@ -44,6 +44,7 @@ typedef DateBoxOptions = {
 	@:optional var useSetButton: Bool;
 	@:optional var useTodayButton: Bool;
 	@:optional var useCollapsedBut: Bool;
+	@:optional var useLang: String;
 	@:optional var rolloverMode: { m: Bool, d: Bool, h: Bool, i: Bool,s: Bool };
 	@:optional var slen: {y: Int, m:Int, d:Int, h:Int, i:Int};
 	@:optional var flen: {y: Int, m:Int, d:Int, h:Int, i:Int,a:Int};
@@ -141,9 +142,18 @@ typedef DateBoxOptions = {
 	@:optional var durationFormat: String;
 	@:optional var overrideDurationFormat: String;
 	@:optional var calDateListLabel: String;
+	@:optional var lang: Dynamic;
 }
 
+#if jtsage
+@:native("jQuery.jtsage.datebox.prototype")
+#else
+@:native("jQuery.mobile.datebox.prototype")
+#end
 extern class JQMDateBox {
+	//@:native("jQuery.jtsage.datebox.prototype.options")
+	static public var options(default, never): DateBoxOptions;
+	
 	static public inline function datebox_options(j: JQuery, param: DateBoxOptions): JQueryX { return untyped j.datebox(param);  }
 	static public inline function datebox_call(j: JQuery, method: String): Dynamic { return untyped j.datebox(method);  }
 	static public inline function datebox_callFormat(j: JQuery, format: String, date: Date): String { return untyped j.datebox('callFormat', format, date);  }
