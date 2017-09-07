@@ -249,8 +249,6 @@ extern class JQueryXOld extends js.JQuery
 
 	inline function newclick(f: js.JqEvent->Void): JQueryX { return off('click').on('click', f); }
 	inline function attachHandler(event: String, f: js.JqEvent->Void): JQueryX { return off(event).on(event, f); }
-	function disableSelection(): JQueryX;
-	function enableSelection(): JQueryX;
 	
 	@:overload(function (fn1: EventHandler, fn2: EventHandler, ?fn3: EventHandler, ?fn4: EventHandler): JQueryX {})
 	@:overload(function (to: Bool): JQueryX {})

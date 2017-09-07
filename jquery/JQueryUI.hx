@@ -2,8 +2,10 @@ package jquery;
 
 @:hack
 @:native("$")
-extern class JQueryUI extends jquery.JQueryX
+extern class JQueryUI extends js.jquery.JQuery
 {
+	static public inline function jui(j: js.jquery.JQuery): JQueryUI { return cast new js.jquery.JQuery(j); }
+	
 	// jQuery UI support
 	
 	// Drag and Drop
@@ -84,5 +86,8 @@ extern class JQueryUI extends jquery.JQueryX
 	public inline function tabsOption(name: String, ?value: Dynamic ): Dynamic { return this.tabs('option', name, value); }
 	
 	public function tooltip(? options: Dynamic): JQueryUI;
+	function disableSelection(): JQueryUI;
+	function enableSelection(): JQueryUI;
+	
 
 }
