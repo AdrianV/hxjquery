@@ -89,5 +89,7 @@ extern class JQueryUI extends js.jquery.JQuery
 	function disableSelection(): JQueryUI;
 	function enableSelection(): JQueryUI;
 	
+	//public inline function isChecked(): Bool { return prop('checked'); }
+	//public inline function setChecked(val: Bool): JQueryUI { return jui(prop( "checked", val)); }
 
 }

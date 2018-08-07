@@ -8,10 +8,10 @@ package jquery;
 //import jquery.JMobile.PagecontainerChangeOptions;
 import haxe.extern.EitherType;
 import js.jquery.JQuery; 
-using jquery.JQueryX; 
+//using jquery.JQueryX; 
 
 typedef SelectMenuOptions = {
-	? var corners: Bool;
+	? corners: Bool,
 }
 
 @:enum abstract ButtonOptionName(String) {
@@ -146,7 +146,7 @@ typedef PopupOptions = {
 }
 
 @:native("$.mobile")
-extern class JMobile extends JQueryX  
+extern class JMobile extends js.jquery.JQuery  
 {
 	//static public inline function jqm(j: js.jquery.JQuery): JMobile { return cast j; } 
 	//@:overload(function(j: js.jquery.JQuery): JMobile { } )
@@ -158,7 +158,7 @@ extern class JMobile extends JQueryX
 	@:overload(function(query: js.html.Node): JMobile {})
 	static public inline function qym(query: String): JMobile { return cast new JQuery(query); }
 	
-	@:overload(function(p:JQueryX, ? options: Dynamic):Void {} )
+	@:overload(function(p:js.jquery.JQuery, ? options: Dynamic):Void {} )
 	static public function changePage(p: String, ? options: Dynamic): Void;
 	
 	static public function loadPage(p: String, ? options: Dynamic): Void;
